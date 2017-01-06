@@ -2,7 +2,7 @@
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/jsrun/core.system.settings/master/LICENSE)
 
-WebIDE command and shortcut management module
+WebIDE command and shortcut management module, following the Cloud 9 standard
  
 ## Usage
 
