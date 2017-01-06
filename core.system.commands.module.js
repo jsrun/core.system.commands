@@ -1,6 +1,8 @@
 /**
- * Core Commands
+ * Core commands module
+ * 
  * @author André Ferreira <andrehrf@gmail.com>
+ * @license MIT
  */
 
 let SystemException = require("../core.plugins.exception.js");
