@@ -1,11 +1,18 @@
 /**
- * Core commands module
- * 
- * @author André Ferreira <andrehrf@gmail.com>
- * @license MIT
+ *  __          __  _    _____ _____  ______ 
+ *  \ \        / / | |  |_   _|  __ \|  ____|
+ *   \ \  /\  / /__| |__  | | | |  | | |__   
+ *    \ \/  \/ / _ \ '_ \ | | | |  | |  __|  
+ *     \  /\  /  __/ |_) || |_| |__| | |____ 
+ *      \/  \/ \___|_.__/_____|_____/|______|
+ *                                                                            
+ *  @author André Ferreira <andrehrf@gmail.com>
+ *  @license MIT
  */
 
-let SystemException = require("../core.plugins.exception.js");
+"use strict";
+
+let SystemException = require("../wi.core.exception.js");
 
 module.exports = {
     /**
