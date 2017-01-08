@@ -69,21 +69,21 @@ module.exports = {
      * @param object app
      * @return this
      */
-    bootstrap: function(app){
+    bootstrap: function(_this){
         let commandList = this.getAll();
         for(let commandName in commandList){
             if(typeof commandList[commandName].route == "object" && typeof commandList[commandName].exec == "function"){
                 if(typeof commandList[commandName].middleware == "object"){
                     for(let middlewareKey in commandList[commandName].middleware)
                         if(typeof commandList[commandName].middleware[middlewareKey] == "function")
-                            app.use(commandList[commandName].middleware[middlewareKey]);
+                            _this.app.use(commandList[commandName].middleware[middlewareKey]);
                 }
                
                 switch(commandList[commandName].route.method){
-                    case "GET": app.get(commandList[commandName].route.pattern, commandList[commandName].exec); break;
-                    case "POST": app.post(commandList[commandName].route.pattern, commandList[commandName].exec); break;
-                    case "PUT": app.put(commandList[commandName].route.pattern, commandList[commandName].exec); break;
-                    case "DELETE": app.delete(commandList[commandName].route.pattern, commandList[commandName].exec); break;
+                    case "GET": _this.app.get(commandList[commandName].route.pattern, commandList[commandName].exec); break;
+                    case "POST": _this.app.post(commandList[commandName].route.pattern, commandList[commandName].exec); break;
+                    case "PUT": _this.app.put(commandList[commandName].route.pattern, commandList[commandName].exec); break;
+                    case "DELETE": _this.app.delete(commandList[commandName].route.pattern, commandList[commandName].exec); break;
                 }
             }
         }
