@@ -25,7 +25,7 @@ module.exports = {
      * @type object
      */
     assets: {
-        js: [__dirname + "/mousetrap.min.js", __dirname + "/mousetrap-global-bind.min.js"]
+        js: [__dirname + "/ccampbell/mousetrap/mousetrap.min.js"]
     },
     
     /**
