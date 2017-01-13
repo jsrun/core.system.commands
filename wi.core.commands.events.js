@@ -22,10 +22,10 @@
      */
     webide.commands.call = function(elem, command){
         if(webide.commands.map[command]){
-            if(typeof webide.commands.map[command].onclick == "string" || typeof webide.commands.map[command].onclick == "function")
-                webide.commands.exec(webide.commands.map[command].onclick);
+            if(typeof webide.commands.map[command].event == "string" || typeof webide.commands.map[command].event == "function")
+                webide.commands.exec(webide.commands.map[command].event);
             else
-                console.error("By default the onclick of the commands must be in the format string or function: ", command);
+                console.error("By default the event of the commands must be in the format string or function: ", command);
         }
         else{
             console.error("Unregistered command: ", command);
@@ -53,7 +53,7 @@
     webide.commands.bindShortcuts = function(){
         if(Mousetrap){
             for(var keyCommandsMap in webide.commands.map){
-                if(typeof webide.commands.map[keyCommandsMap].bind == "object" && (typeof webide.commands.map[keyCommandsMap].onclick == "string" || typeof webide.commands.map[keyCommandsMap].onclick == "function")){
+                if(typeof webide.commands.map[keyCommandsMap].bind == "object" && (typeof webide.commands.map[keyCommandsMap].event == "string" || typeof webide.commands.map[keyCommandsMap].event == "function")){
                     var bindsArr = [];
 
                     if(webide.commands.map[keyCommandsMap].bind.win)
@@ -66,10 +66,7 @@
                             webide.commands.exec(action);
                             return false;
                         });
-                    })(bindsArr, webide.commands.map[keyCommandsMap].onclick);
-                }
-                else{
-                    console.error("The command default is bind being object and onclick as function or string: ", keyCommandsMap);
+                    })(bindsArr, webide.commands.map[keyCommandsMap].event);
                 }
             }
         }

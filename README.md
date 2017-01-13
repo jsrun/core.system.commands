@@ -16,14 +16,23 @@ WebIDE command and shortcut management module, following the Cloud 9 standard
 ```js
 webide.commands.addCommand({
     name: "copy",
-    bind: {mac: "Command-C", win: "Ctrl-C"}
+    bind: {mac: "Command-C", win: "Ctrl-C"},
+    event: "webide.tabs.foced().copy()",
 });
 
 webide.navbar.addItem("Edit/Copy", {
     command: "copy",
-    onclick: "webide.copy()",
     divide: true
 }, 200);
+
+webide.commands.addCommand({
+    name: "save",
+    bind: {mac: "Command-S", win: "Ctrl-S"},
+    route: {method: "PUT", pattern: "/save", middleware: [multipart()]},
+    exec: (req, res) => {
+        webide.file.save(req, res);
+    }
+});
 ```
 
 ## License
