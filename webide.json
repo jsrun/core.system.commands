@@ -1,6 +1,6 @@
 {
     "name": "wi.core.commands",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "author": "André Ferreira <andrehrf@gmail.com>",
     "dependencies": {
         "ccampbell/mousetrap": "1.6.0"
