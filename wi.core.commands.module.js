@@ -12,7 +12,8 @@
 
 "use strict";
 
-let SystemException = require("../wi.core.exception.js");
+let SystemException = require("../wi.core.exception.js"),
+    TemplateEngine = require("../wi.core.template.js");
 
 module.exports = {
     /**
@@ -25,7 +26,7 @@ module.exports = {
      * @type object
      */
     assets: {
-        js: [__dirname + "/ccampbell/mousetrap/mousetrap.min.js"]
+        js: [__dirname + "/ccampbell/mousetrap/mousetrap.min.js", __dirname + "/wi.core.commands.events.js"]
     },
     
     /**
@@ -121,5 +122,15 @@ module.exports = {
         }
         
         return this;
+    },
+    
+    /**
+     * Function to generate template
+     * 
+     * @param object _this
+     * @return string
+     */
+    getTemplate: function(_this){
+        return TemplateEngine(__dirname + "/wi.core.commands.tpl.ejs").seti18n(_this.i18n).render({commands: JSON.stringify(this.commands)});
     }
 };
