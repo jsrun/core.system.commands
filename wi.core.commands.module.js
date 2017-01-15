@@ -50,6 +50,24 @@ module.exports = {
     },
     
     /**
+     * Function to bind keymaps from Atom packages
+     * 
+     * @params object keymapsFile
+     * @return void
+     */
+    addAtomKeymaps: function(keymapsFile){
+        for(let key in keymapsFile){
+            for(let shurtcut in keymapsFile[key]){
+                this.addCommand({                    
+                    name: keymapsFile[key][shurtcut],
+                    bind: {win: shurtcut},
+                    event: "webide.atom.call('" + keymapsFile[key][shurtcut] + "')"
+                });
+            }
+        }
+    },
+    
+    /**
      * Function to return all commands
      * 
      * @return object
