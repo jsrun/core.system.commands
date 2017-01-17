@@ -21,6 +21,7 @@
      * @return void
      */
     webide.commands.call = function(elem, command){
+        console.log(command);
         if(webide.commands.map[command]){
             if(typeof webide.commands.map[command].event == "string" || typeof webide.commands.map[command].event == "function")
                 webide.commands.exec(webide.commands.map[command].event);
@@ -31,6 +32,20 @@
             console.error("Unregistered command: ", command);
         }
     };  
+    
+    /**
+     * Function to associate command name to function
+     * 
+     * @param string command
+     * @param function fn
+     * @return void
+     */
+    webide.commands.add = function(command, fn){
+        if(!webide.commands.map[command])
+            webide.commands.map[command] = {event: fn};
+        else
+            webide.commands.map[command].event = fn;
+    };
     
     /**
      * Function to perform command function
@@ -53,7 +68,7 @@
     webide.commands.bindShortcuts = function(){
         if(Mousetrap){
             for(var keyCommandsMap in webide.commands.map){
-                if(typeof webide.commands.map[keyCommandsMap].bind == "object" && (typeof webide.commands.map[keyCommandsMap].event == "string" || typeof webide.commands.map[keyCommandsMap].event == "function")){
+                if(typeof webide.commands.map[keyCommandsMap].bind == "object"){
                     var bindsArr = [];
 
                     if(webide.commands.map[keyCommandsMap].bind.win)
@@ -63,10 +78,10 @@
 
                     (function(bind, action){
                         Mousetrap.bind(bind, function(e) {
-                            webide.commands.exec(action);
+                            webide.commands.call(null, action);
                             return false;
                         });
-                    })(bindsArr, webide.commands.map[keyCommandsMap].event);
+                    })(bindsArr, keyCommandsMap);
                 }
             }
         }
