@@ -20,11 +20,12 @@
      * @param string command
      * @return void
      */
-    webide.commands.call = function(elem, command){
-        console.log(command);
+    webide.commands.call = function(elem, command, args){
         if(webide.commands.map[command]){
+            args = args || webide.commands.map[command].args;
+                        
             if(typeof webide.commands.map[command].event == "string" || typeof webide.commands.map[command].event == "function")
-                webide.commands.exec(webide.commands.map[command].event);
+                webide.commands.exec(webide.commands.map[command].event, args);
             else
                 console.error("By default the event of the commands must be in the format string or function: ", command);
         }
@@ -40,11 +41,14 @@
      * @param function fn
      * @return void
      */
-    webide.commands.add = function(command, fn){
-        if(!webide.commands.map[command])
-            webide.commands.map[command] = {event: fn};
-        else
+    webide.commands.add = function(command, fn, args){
+        if(!webide.commands.map[command]){
+            webide.commands.map[command] = {event: fn, args: args};
+        }
+        else{
             webide.commands.map[command].event = fn;
+            webide.commands.map[command].args = args;
+        }
     };
     
     /**
@@ -53,9 +57,9 @@
      * @param string|function event
      * @return void
      */
-    webide.commands.exec = function(event){
+    webide.commands.exec = function(event, args){
         if(typeof event == "function")
-            event();
+            event(args);
         else if(typeof event == "string")
             eval(event);
     };
@@ -76,12 +80,12 @@
                     if(webide.commands.map[keyCommandsMap].bind.mac)
                         bindsArr.push(webide.commands.map[keyCommandsMap].bind.mac.replace(/-/img, "+").toLowerCase());
 
-                    (function(bind, action){
+                    (function(bind, action, args){
                         Mousetrap.bind(bind, function(e) {
-                            webide.commands.call(null, action);
+                            webide.commands.call(null, action, args);
                             return false;
                         });
-                    })(bindsArr, keyCommandsMap);
+                    })(bindsArr, keyCommandsMap, webide.commands.map[keyCommandsMap].args);
                 }
             }
         }
