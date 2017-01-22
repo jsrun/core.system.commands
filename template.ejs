@@ -11,13 +11,12 @@
  *  @license MIT
  */
 -->
+
 <script type="text/javascript">
     "use strict";
 
-    (function(){
-        if(!webide.commands)
-            webide.commands = {};
-        
-        webide.commands.map = <%- commands %>;
-    })();
+    webide.onload(function(){    
+        webide.commands.assignMap(<%- commands %>);
+        webide.commands.bindShortcuts();
+    });
 </script>

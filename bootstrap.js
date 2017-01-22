@@ -26,7 +26,7 @@ module.exports = {
      * @type object
      */
     assets: {
-        js: [__dirname + "/mousetrap/mousetrap.min.js", __dirname + "/wi.core.commands.events.js"]
+        js: [__dirname + "/node_modules/mousetrap/mousetrap.min.js"]
     },
     
     /**
@@ -97,6 +97,7 @@ module.exports = {
      */
     bootstrap: function(_this){
         let commandList = this.getAll();
+        
         for(let commandName in commandList){
             if(typeof commandList[commandName].route == "object" && typeof commandList[commandName].exec == "function"){
                 if(typeof commandList[commandName].middleware == "object"){
@@ -149,6 +150,6 @@ module.exports = {
      * @return string
      */
     getTemplate: function(_this){
-        return TemplateEngine(__dirname + "/wi.core.commands.tpl.ejs").seti18n(_this.i18n).render({commands: JSON.stringify(this.commands)});
+        return TemplateEngine(__dirname + "/template.ejs").seti18n(_this.i18n).render({commands: JSON.stringify(this.commands)});
     }
 };
