@@ -41,7 +41,10 @@ webide.module("commands", function(){
                     console.error("Unregistered command: ", command);
                 }
             }
-            catch(e) { console.error("Unregistered command: ", command); }
+            catch(e) { 
+                console.error("Unregistered command: ", command); 
+                console.log(e.message)
+            }
         },
         
         /**
