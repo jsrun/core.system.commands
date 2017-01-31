@@ -95,7 +95,7 @@ module.exports = {
      * @param object app
      * @return this
      */
-    bootstrap: function(_this){
+    bootstrap: function(commands){
         let commandList = this.getAll();
         
         for(let commandName in commandList){
@@ -103,14 +103,14 @@ module.exports = {
                 if(typeof commandList[commandName].middleware == "object"){
                     for(let middlewareKey in commandList[commandName].middleware)
                         if(typeof commandList[commandName].middleware[middlewareKey] == "function")
-                            _this.app.use(commandList[commandName].middleware[middlewareKey]);
+                            commands.app.use(commandList[commandName].middleware[middlewareKey]);
                 }
                
                 switch(commandList[commandName].route.method){
-                    case "GET": _this.app.get(commandList[commandName].route.pattern, commandList[commandName].exec); break;
-                    case "POST": _this.app.post(commandList[commandName].route.pattern, commandList[commandName].exec); break;
-                    case "PUT": _this.app.put(commandList[commandName].route.pattern, commandList[commandName].exec); break;
-                    case "DELETE": _this.app.delete(commandList[commandName].route.pattern, commandList[commandName].exec); break;
+                    case "GET": commands.app.get(commandList[commandName].route.pattern, commandList[commandName].exec); break;
+                    case "POST": commands.app.post(commandList[commandName].route.pattern, commandList[commandName].exec); break;
+                    case "PUT": commands.app.put(commandList[commandName].route.pattern, commandList[commandName].exec); break;
+                    case "DELETE": commands.app.delete(commandList[commandName].route.pattern, commandList[commandName].exec); break;
                 }
             }
         }
@@ -149,7 +149,7 @@ module.exports = {
      * @param object _this
      * @return string
      */
-    getTemplate: function(_this){
-        return TemplateEngine(__dirname + "/template.ejs").seti18n(_this.i18n).render({commands: JSON.stringify(this.commands)});
+    getTemplate: function(i18n, commands){
+        return TemplateEngine(__dirname + "/template.ejs").seti18n(i18n).render({commands: JSON.stringify(commands.commands)});
     }
 };
