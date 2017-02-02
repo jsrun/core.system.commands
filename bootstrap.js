@@ -12,9 +12,6 @@
 
 "use strict";
 
-let SystemException = require("../wi.core.exception.js"),
-    TemplateEngine = require("../wi.core.template.js");
-
 module.exports = {
     /**
      * List of commands
@@ -40,10 +37,10 @@ module.exports = {
             if(typeof item.name == "string")
                 this.commands[item.name] = item;
             else
-                throw new SystemException("Could not register command due to missing valid name.");
+                throw new "Could not register command due to missing valid name.";
         }
         else{
-            throw new SystemException("The default value for command items is 'object'.");
+            throw new "The default value for command items is 'object'.";
         }
         
         return this;
@@ -130,14 +127,14 @@ module.exports = {
                 if(typeof this.commands[name].exec == "function")
                     this.commands[name].exec.apply(this, params);
                 else
-                    throw new SystemException(`The '${name}' command has no callback function`);
+                    throw new `The '${name}' command has no callback function`;
             }
             else{
-                throw new SystemException(`The command '${name}' was not found`);
+                throw new `The command '${name}' was not found`;
             }
         }
         else{
-            throw new SystemException("The default value for command name is 'string'.");
+            throw new "The default value for command name is 'string'.";
         }
         
         return this;
@@ -149,7 +146,7 @@ module.exports = {
      * @param object _this
      * @return string
      */
-    getTemplate: function(i18n, commands){
-        return TemplateEngine(__dirname + "/template.ejs").seti18n(i18n).render({commands: JSON.stringify(commands.commands)});
+    getTemplate: function(i18n, commands, template){
+        return new template(__dirname + "/template.ejs").seti18n(i18n).render({commands: JSON.stringify(commands.commands)});
     }
 };
