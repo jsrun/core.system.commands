@@ -1,6 +1,6 @@
 {
     "name": "wi.core.commands",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "description": "WebIDE command and shortcut management module",
     "author": "André Ferreira <andrehrf@gmail.com>",
     "license": "MIT",

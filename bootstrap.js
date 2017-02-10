@@ -12,6 +12,8 @@
 
 "use strict";
 
+const fs = require("fs");
+
 module.exports = {
     /**
      * List of commands
@@ -62,6 +64,33 @@ module.exports = {
                 });
             }
         }
+    },
+    
+    /**
+     * Function to assign by object
+     * 
+     * @param object itens
+     * @return void
+     */
+    assign: function(itens){
+        for(let key in itens){
+            if(typeof itens[key] == "object"){
+                try{ this.commands[itens[key].name] = itens[key]; }
+                catch(e){ console.log(e.message); }
+            }
+        }
+    },
+    
+    /**
+     * Function to import by file
+     * 
+     * @return void
+     */
+    "import": function(filename){
+        try{
+            if(fs.statSync(filename).isFile())
+                this.assign(JSON.parse(fs.readFileSync(filename).toString())); 
+        }catch(e){ console.log(e.message); }
     },
     
     /**
